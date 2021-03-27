@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
 import requests
 import csv
+
 source = requests.get('https://www.fletcher.nl/nl/hotels/lijst').text
 
 soup = BeautifulSoup(source,'lxml')
@@ -8,11 +9,14 @@ soup = BeautifulSoup(source,'lxml')
 hotel = soup.find('div', class_='hotel')
 #number_people = soup.find('div', class_='selectmenu selectmenu--occupation selectmenu--active"').
 number_people = soup.find('div', class_="m-bit-100 bit-20 book__occupation")
+# Number of people
 parents = soup.find('input', class_="form__input form__input--occupation occupationAdults")['value']
 kids = soup.find('input', class_="form__input form__input--occupation occupationKids")['value']
 babys = soup.find('input', class_="form__input form__input--occupation occupationNewborn")['value']
 
-print('parents ')
+next_page = soup.find('form', class_="hotel_reservation_form").text
+
+print(next_page.prettify())
 #print(ouders)
 
 print(number_people.prettify())
